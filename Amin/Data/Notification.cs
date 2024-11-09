@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Amin.Models;
+namespace Amin.Data;
 
 public partial class Notification
 {

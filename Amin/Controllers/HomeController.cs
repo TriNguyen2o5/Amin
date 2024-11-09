@@ -1,4 +1,4 @@
-using Amin.Models;
+using Amin.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

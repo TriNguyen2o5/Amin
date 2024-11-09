@@ -1,4 +1,4 @@
-namespace Amin.Models
+namespace Amin.Data
 {
     public class ErrorViewModel
     {
