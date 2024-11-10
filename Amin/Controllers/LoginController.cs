@@ -38,7 +38,6 @@ namespace Amin.Controllers
                 // Redirect đến trang chính hoặc trang quản lý người dùng
                 return RedirectToAction("Index", "Home");
             }
-
             // Nếu đăng nhập thất bại, hiển thị thông báo lỗi
             ViewData["ErrorMessage"] = "Sai tên đăng nhập hoặc mật khẩu";
             return View("Index");

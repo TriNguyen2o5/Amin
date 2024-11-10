@@ -156,12 +156,12 @@ html, body {
 
 .container.sign-in::before {
     transform: translate(0, 0);
-    right: 50%;
+    right: 60%;
 }
 
 .container.sign-up::before {
     transform: translate(100%, 0);
-    right: 50%;
+    right: 60%;
 }
 
 /* Responsive cho màn hình nhỏ */

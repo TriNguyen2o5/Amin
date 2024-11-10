@@ -1,7 +1,7 @@
 ﻿@page
 @model Amin.Views.Login.IndexModel
 @{
-    Layout = "_Layout";
+   
 }
 <head>
     <link rel="stylesheet" href="~/css/Login.css" />
@@ -30,7 +30,7 @@
                             <i class='bx bxs-lock-alt'></i>
                             <input type="password" placeholder="Confirm password">
                         </div>
-                        <button>Sign up</button>
+                        <button >Sign up</button>
                         <p><span>Already have an account?</span> <b onclick="toggle()" class="pointer">Sign in here</b></p>
                     </div>
                 </div>
@@ -47,11 +47,11 @@
                             <i class='bx bxs-lock-alt'></i>
                             <input type="password" placeholder="Password" name="password">
                         </div>
-                        <button>Sign in</button>
-                         @if (ViewData["ErrorMessage"] != null)
+                        <button asp-controller="Home"asp-action="Index">Sign in</button>
+                        @* @if (ViewData["ErrorMessage"] != null)
                         {
                             <div class="alert alert-danger mt-2">@ViewData["ErrorMessage"]</div>
-                        }
+                        } *@
                         <p><b>Forgot password?</b></p>
                         <p><span>Don't have an account?</span> <b onclick="toggle()" class="pointer">Sign up here</b></p>
                     </div>
