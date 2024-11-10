@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Amin.Data;
 
-namespace Amin.Models
+namespace Amin.Controllers
 {
     public class UsersController : Controller
     {

@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Amin.Data.Post>
+﻿@model IEnumerable<Amin.Data.Notification>
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
@@ -10,7 +10,6 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-
 <table class="table">
     <thead>
         <tr>
@@ -21,10 +20,7 @@
                 @Html.DisplayNameFor(model => model.Content)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostedDate)
+                @Html.DisplayNameFor(model => model.SendDay)
             </th>
             <th></th>
         </tr>
@@ -39,15 +35,12 @@
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AuthorName)
+                @Html.DisplayFor(modelItem => item.SendDay)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.NotificateId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.NotificateId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NotificateId">Delete</a>
             </td>
         </tr>
 }

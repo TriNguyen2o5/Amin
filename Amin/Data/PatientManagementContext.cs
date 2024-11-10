@@ -33,7 +33,7 @@ public partial class PatientManagementContext : DbContext
     {
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.CommentId).HasName("PK__Comments__99FC143B0EF85069");
+            entity.HasKey(e => e.CommentId).HasName("PK__Comments__99FC143B4CE8B184");
 
             entity.Property(e => e.CommentId).HasColumnName("Comment_ID");
             entity.Property(e => e.CommentAuthorId).HasColumnName("Comment_Author_ID");
@@ -47,7 +47,6 @@ public partial class PatientManagementContext : DbContext
 
             entity.HasOne(d => d.CommentAuthor).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.CommentAuthorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Comments_AuthorID");
 
             entity.HasOne(d => d.Post).WithMany(p => p.Comments)
@@ -58,7 +57,7 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<Notification>(entity =>
         {
-            entity.HasKey(e => e.NotificateId).HasName("PK__Notifica__14707F343AB94DD3");
+            entity.HasKey(e => e.NotificateId).HasName("PK__Notifica__14707F342513C431");
 
             entity.Property(e => e.NotificateId).HasColumnName("NotificateID");
             entity.Property(e => e.Content).HasColumnType("ntext");
@@ -68,7 +67,7 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<PatientInformation>(entity =>
         {
-            entity.HasKey(e => e.RecordId).HasName("PK__Patient___603A0C60E52C7B8C");
+            entity.HasKey(e => e.RecordId).HasName("PK__Patient___603A0C60E46CD560");
 
             entity.ToTable("Patient_Informations");
 
@@ -89,13 +88,17 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<Post>(entity =>
         {
-            entity.HasKey(e => e.PostId).HasName("PK__Posts__5875F74D3B0A29D5");
+            entity.HasKey(e => e.PostId).HasName("PK__Posts__5875F74D65BE3C04");
 
             entity.Property(e => e.PostId).HasColumnName("Post_ID");
             entity.Property(e => e.AuthorName)
                 .HasMaxLength(255)
                 .HasColumnName("Author_Name");
             entity.Property(e => e.Content).HasColumnType("ntext");
+            entity.Property(e => e.PostImageData).HasColumnName("Post_Image_Data");
+            entity.Property(e => e.PostImageId)
+                .HasMaxLength(255)
+                .HasColumnName("Post_Image_ID");
             entity.Property(e => e.PostedDate)
                 .HasColumnType("datetime")
                 .HasColumnName("Posted_Date");
@@ -104,9 +107,9 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__206D9190C5FD1358");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__206D91904F968F0E");
 
-            entity.HasIndex(e => e.Username, "UQ__Users__536C85E4E9BB063F").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Users__536C85E49A7B7A13").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("User_ID");
             entity.Property(e => e.Address).HasMaxLength(255);
@@ -135,7 +138,7 @@ public partial class PatientManagementContext : DbContext
                         .HasConstraintName("FK_TruyCap_UserID"),
                     j =>
                     {
-                        j.HasKey("UserId", "PostId").HasName("PK__Truy_Cap__E5EACEE4BA14527A");
+                        j.HasKey("UserId", "PostId").HasName("PK__Truy_Cap__E5EACEE4E8E8D7B5");
                         j.ToTable("Truy_Cap");
                         j.IndexerProperty<int>("UserId").HasColumnName("User_ID");
                         j.IndexerProperty<int>("PostId").HasColumnName("Post_ID");

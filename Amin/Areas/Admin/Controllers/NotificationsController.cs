@@ -10,22 +10,22 @@ using Amin.Data;
 namespace Amin.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PostsController : Controller
+    public class NotificationsController : Controller
     {
         private readonly PatientManagementContext _context;
 
-        public PostsController(PatientManagementContext context)
+        public NotificationsController(PatientManagementContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/Posts
+        // GET: Admin/Notifications
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.ToListAsync());
+            return View(await _context.Notifications.ToListAsync());
         }
 
-        // GET: Admin/Posts/Details/5
+        // GET: Admin/Notifications/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Amin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts
-                .FirstOrDefaultAsync(m => m.PostId == id);
-            if (post == null)
+            var notification = await _context.Notifications
+                .FirstOrDefaultAsync(m => m.NotificateId == id);
+            if (notification == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(notification);
         }
 
-        // GET: Admin/Posts/Create
+        // GET: Admin/Notifications/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Posts/Create
+        // POST: Admin/Notifications/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,Content,AuthorName,PostedDate")] Post post)
+        public async Task<IActionResult> Create([Bind("NotificateId,Title,Content,SendDay")] Notification notification)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(post);
+                _context.Add(notification);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(post);
+            return View(notification);
         }
 
-        // GET: Admin/Posts/Edit/5
+        // GET: Admin/Notifications/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Amin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts.FindAsync(id);
-            if (post == null)
+            var notification = await _context.Notifications.FindAsync(id);
+            if (notification == null)
             {
                 return NotFound();
             }
-            return View(post);
+            return View(notification);
         }
 
-        // POST: Admin/Posts/Edit/5
+        // POST: Admin/Notifications/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,Content,AuthorName,PostedDate")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("NotificateId,Title,Content,SendDay")] Notification notification)
         {
-            if (id != post.PostId)
+            if (id != notification.NotificateId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Amin.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(post);
+                    _context.Update(notification);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PostExists(post.PostId))
+                    if (!NotificationExists(notification.NotificateId))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Amin.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(post);
+            return View(notification);
         }
 
-        // GET: Admin/Posts/Delete/5
+        // GET: Admin/Notifications/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace Amin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts
-                .FirstOrDefaultAsync(m => m.PostId == id);
-            if (post == null)
+            var notification = await _context.Notifications
+                .FirstOrDefaultAsync(m => m.NotificateId == id);
+            if (notification == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(notification);
         }
 
-        // POST: Admin/Posts/Delete/5
+        // POST: Admin/Notifications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var post = await _context.Posts.FindAsync(id);
-            if (post != null)
+            var notification = await _context.Notifications.FindAsync(id);
+            if (notification != null)
             {
-                _context.Posts.Remove(post);
+                _context.Notifications.Remove(notification);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PostExists(int id)
+        private bool NotificationExists(int id)
         {
-            return _context.Posts.Any(e => e.PostId == id);
+            return _context.Notifications.Any(e => e.NotificateId == id);
         }
     }
 }

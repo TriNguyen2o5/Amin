@@ -7,9 +7,9 @@ public partial class Notification
 {
     public int NotificateId { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string? Title { get; set; }
 
-    public string Content { get; set; } = null!;
+    public string? Content { get; set; }
 
-    public DateOnly SendDay { get; set; }
+    public DateOnly? SendDay { get; set; }
 }
