@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Amin.Data.User>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-responsive-md">
+    <thead>
+        <tr>
+            <th>
+                <p>Họ Và Tên</p>
+            </th>
+            <th>
+                <p>Tuổi</p>
+            </th>
+            <th>
+                <p>Năm Sinh</p>
+            </th>
+            <th>
+               <p>Địa Chỉ</p> 
+            </th>
+            <th>
+               <p>Giới tính</p> 
+            </th>
+            <th>
+                <p>Chỉ số BMI</p>
+            </th>
+            <th>
+                <p>Tình trạng hút thuốc</p>
+            </th>
+            <th>
+               <p>Tình trạng dùng đồ uống có cồn</p> 
+            </th>
+            <th>
+                <p>Tên người dùng</p>
+            </th>
+            <th>
+                <p>Mật Khẩu</p>
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bmi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SmokingStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlcoholicStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.UserId">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

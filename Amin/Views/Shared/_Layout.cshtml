@@ -8,61 +8,69 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SleepCare.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-
+    
 </head>
 <body>
-    <header>
-        <!-- Navbar with image and links -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <!-- Logo/Image in header -->
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img class="img-fluid" src="~/images/MEDICAL LOGO
-1.jpg" alt="SleepCare Logo" height="90" width="250"  /> SleepCare
-                </a>
-
-                <!-- Navbar toggler for smaller screens -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Navbar links -->
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Posts" asp-action="Index">Admin</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container-fluid">
-        <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    @* Kiểm tra nếu đang ở trang đăng nhập để ẩn navbar và footer *@
+    @if (ViewData["IsLoginPage"] != null && (bool)ViewData["IsLoginPage"] == true)
+    {
+        <div class="full-screen-container">
             @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <div class="container-fluid">
-            &Copyright by SleepCare -2024- <a asp-area="" asp-controller="Home" asp-action="About">About nè</a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    }
+    else{
+        <header>
+            <!-- Navbar with image and links -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <!-- Logo/Image in header -->
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img class="img-fluid" src="~/images/MEDICAL LOGO1.jpg" alt="SleepCare Logo" height="90" width="250"  /> SleepCare
+                    </a>
+
+                    <!-- Navbar toggler for smaller screens -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Navbar links -->
+                    <div class="collapse navbar-collapse" id="navbarContent">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Sign up</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="UsersManagement" asp-action="Index">Admin</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container-fluid">
+            <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted">
+            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <div class="container-fluid">
+                &Copyright by SleepCare -2024- <a asp-area="" asp-controller="Home" asp-action="About">About nè</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+}
 </body>
 </html>

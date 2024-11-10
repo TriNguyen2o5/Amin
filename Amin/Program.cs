@@ -1,9 +1,15 @@
-﻿using Amin.Data;
+﻿using Amin;
+using Amin.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
+// Đăng ký cấu hình OpenAiSettings
+builder.Services.Configure<OpenAiSettings>(builder.Configuration.GetSection("OpenAI"));
+
+// Đăng ký HttpClient và ChatGptService
+builder.Services.AddHttpClient<ChatGptService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //phần cấu hình DbContext
@@ -29,7 +35,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "Areas",
-    pattern: "{area:exists}/{controller=Posts}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=UsersManagement}/{action=Index}/{id?}");
 
 
 app.MapControllerRoute(

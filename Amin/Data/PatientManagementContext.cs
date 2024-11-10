@@ -28,18 +28,17 @@ public partial class PatientManagementContext : DbContext
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
 //        => optionsBuilder.UseSqlServer("");
-// hello world asmldaskmklasdmklamskldaskldmklasdmklasdmlkaksldmaksldmaklsdkmlklmaslkdasdmaklsdmklasdkl
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.CommentId).HasName("PK__Comments__99FC143BD923ED6A");
+            entity.HasKey(e => e.CommentId).HasName("PK__Comments__99FC143B0EF85069");
 
             entity.Property(e => e.CommentId).HasColumnName("Comment_ID");
             entity.Property(e => e.CommentAuthorId).HasColumnName("Comment_Author_ID");
             entity.Property(e => e.CommentContent)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("Comment_Content");
             entity.Property(e => e.CommentDate)
                 .HasColumnType("datetime")
@@ -59,24 +58,24 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<Notification>(entity =>
         {
-            entity.HasKey(e => e.NotificateId).HasName("PK__Notifica__14707F34AFE2DB60");
+            entity.HasKey(e => e.NotificateId).HasName("PK__Notifica__14707F343AB94DD3");
 
             entity.Property(e => e.NotificateId).HasColumnName("NotificateID");
-            entity.Property(e => e.Content).HasColumnType("text");
+            entity.Property(e => e.Content).HasColumnType("ntext");
             entity.Property(e => e.SendDay).HasColumnName("Send_Day");
-            entity.Property(e => e.Title)
-                .HasMaxLength(255)
-                .IsUnicode(false);
+            entity.Property(e => e.Title).HasMaxLength(255);
         });
 
         modelBuilder.Entity<PatientInformation>(entity =>
         {
-            entity.HasKey(e => e.RecordId).HasName("PK__Patient___603A0C6096D1D6B4");
+            entity.HasKey(e => e.RecordId).HasName("PK__Patient___603A0C60E52C7B8C");
 
             entity.ToTable("Patient_Informations");
 
             entity.Property(e => e.RecordId).HasColumnName("Record_ID");
-            entity.Property(e => e.CaffeineIntake).HasColumnName("Caffeine_intake");
+            entity.Property(e => e.CaffeineIntake)
+                .HasColumnType("decimal(4, 1)")
+                .HasColumnName("Caffeine_intake");
             entity.Property(e => e.PhysicalActivityDuration).HasColumnName("Physical_Activity_Duration");
             entity.Property(e => e.SleepTime).HasColumnName("Sleep_Time");
             entity.Property(e => e.UserId).HasColumnName("User_ID");
@@ -90,27 +89,24 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<Post>(entity =>
         {
-            entity.HasKey(e => e.PostId).HasName("PK__Posts__5875F74D2BDA4D0B");
+            entity.HasKey(e => e.PostId).HasName("PK__Posts__5875F74D3B0A29D5");
 
             entity.Property(e => e.PostId).HasColumnName("Post_ID");
             entity.Property(e => e.AuthorName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("Author_Name");
-            entity.Property(e => e.Content).HasColumnType("text");
+            entity.Property(e => e.Content).HasColumnType("ntext");
             entity.Property(e => e.PostedDate)
                 .HasColumnType("datetime")
                 .HasColumnName("Posted_Date");
-            entity.Property(e => e.Title)
-                .HasMaxLength(255)
-                .IsUnicode(false);
+            entity.Property(e => e.Title).HasMaxLength(255);
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__206D9190F14EC0BE");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__206D9190C5FD1358");
 
-            entity.HasIndex(e => e.Username, "UQ__Users__536C85E41DE9E114").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Users__536C85E4E9BB063F").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("User_ID");
             entity.Property(e => e.Address).HasMaxLength(255);
@@ -139,7 +135,7 @@ public partial class PatientManagementContext : DbContext
                         .HasConstraintName("FK_TruyCap_UserID"),
                     j =>
                     {
-                        j.HasKey("UserId", "PostId").HasName("PK__Truy_Cap__E5EACEE4CA7A1E3A");
+                        j.HasKey("UserId", "PostId").HasName("PK__Truy_Cap__E5EACEE4BA14527A");
                         j.ToTable("Truy_Cap");
                         j.IndexerProperty<int>("UserId").HasColumnName("User_ID");
                         j.IndexerProperty<int>("PostId").HasColumnName("Post_ID");

@@ -11,7 +11,7 @@ public partial class PatientInformation
 
     public int PhysicalActivityDuration { get; set; }
 
-    public int CaffeineIntake { get; set; }
+    public decimal CaffeineIntake { get; set; }
 
     public TimeOnly SleepTime { get; set; }
 
