@@ -1,7 +1,4 @@
 ﻿@model IEnumerable<Amin.Data.Post>
-@{
-    ViewData["Title"] = "Home Page";
-}
 
 <div class="container">
     <h2>Recent Posts</h2>
@@ -13,9 +10,9 @@
                     <div class="card-body">
                         <h5 class="card-title">@post.Title</h5>
                         <p class="card-text">
-                            @post.Content.Length > 100 ? @post.Content.Substring(0, 100) + "..." : @post.Content
+                            @(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)
                         </p>
-                        <a href="@Url.Action("Details", "Posts", new { area = "Admin", id = post.PostId })" class="btn btn-primary">Read More</a>
+                        <a href="@Url.Action("Details", "Posts", new { id = post.PostId })" class="btn btn-primary">Read More</a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,11 @@
+﻿@model Amin.Data.Post
+
+<div class="container">
+    <h2>@Model.Title</h2>
+    <p><small>By @Model.AuthorName on @Model.PostedDate</small></p>
+    <hr />
+    <div>
+        <p>@Model.Content</p>
+    </div>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Back to Home</a>
+</div>
