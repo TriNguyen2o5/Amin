@@ -1,19 +1,36 @@
 ﻿@{
     ViewData["Title"] = "ChatGPT Prompt";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<h2>Chat with ChatGPT</h2>
+<div class="container mt-5">
+    <!-- Tiêu đề trang -->
+    <h2 class="text-center text-primary mb-4">Chat with Medical AI Assistant</h2>
 
-<form method="post">
-    <div>
-        <label for="prompt">Enter your prompt:</label>
-        <input type="text" id="prompt" name="prompt" required />
-    </div>
-    <button type="submit">Submit</button>
-</form>
+    <!-- Form gửi prompt -->
+    <form method="post" class="shadow p-4 rounded bg-light">
+        <div class="form-group">
+            <label for="prompt" class="font-weight-bold">How can I help you?</label>
+            <input type="text" id="prompt" name="prompt" class="form-control" placeholder="Ask me anything about medical topics" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Submit</button>
+    </form>
 
-@if (ViewBag.Response != null)
-{
-    <h3>Response from ChatGPT:</h3>
-    <p>@ViewBag.Response</p>
-}
+    <!-- Kết quả trả về từ AI -->
+    @if (ViewBag.Response != null)
+    {
+        <div class="alert alert-info mt-4">
+            <h4>Response from Medical AI Assistant:</h4>
+            <p>@ViewBag.Response</p>
+        </div>
+    }
+</div>
+
+<!-- Thêm một số phần tử JavaScript để tạo hiệu ứng động hoặc xử lý -->
+<script>
+    // Optional: Smooth Scroll to top after form submission
+    document.querySelector('form').addEventListener('submit', function() {
+        window.scrollTo(0, 0);
+    });
+</script>
+

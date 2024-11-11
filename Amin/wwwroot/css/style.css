@@ -1,0 +1,31 @@
+﻿.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #34495e;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border-color: #2980b9;
+}
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #3498db;
+    }
+
+img {
+    max-height: 400px;
+    width: auto;
+    margin-top: 20px;
+}

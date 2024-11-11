@@ -1,0 +1,22 @@
+﻿/* Tăng kích thước của container và biểu đồ */
+.container {
+    font-size: 16px; /* Tăng kích thước font cho toàn bộ container */
+}
+
+.card-header h3 {
+    font-size: 24px; /* Tăng kích thước font cho tiêu đề biểu đồ */
+}
+
+svg {
+    font-size: 18px; /* Tăng kích thước chữ trong biểu đồ */
+}
+
+.axis text {
+    font-size: 18px; /* Tăng kích thước chữ trên trục X và Y */
+}
+
+.bar text {
+    font-size: 18px; /* Tăng kích thước chữ cho các số liệu trong cột */
+    font-weight: bold;
+    fill: white; /* Đổi màu chữ cho dễ nhìn */
+}

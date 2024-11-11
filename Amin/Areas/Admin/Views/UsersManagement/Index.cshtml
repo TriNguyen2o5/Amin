@@ -5,43 +5,43 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Users Management</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-info" asp-action="Create">Create new user</a>
 </p>
 <table class="table table-responsive-md">
     <thead>
         <tr>
             <th>
-                <p>Họ Và Tên</p>
+                <p>Full Name</p>
             </th>
             <th>
-                <p>Tuổi</p>
+                <p>Age</p>
             </th>
             <th>
-                <p>Năm Sinh</p>
+                <p>Year Of Birth</p>
             </th>
             <th>
-               <p>Địa Chỉ</p> 
+               <p>Address</p> 
             </th>
             <th>
-               <p>Giới tính</p> 
+               <p>Gender</p> 
             </th>
             <th>
-                <p>Chỉ số BMI</p>
+                <p>BMI</p>
             </th>
             <th>
-                <p>Tình trạng hút thuốc</p>
+                <p>Smoking Status</p>
             </th>
             <th>
-               <p>Tình trạng dùng đồ uống có cồn</p> 
+                <p>Alcoholic Status</p>
             </th>
             <th>
-                <p>Tên người dùng</p>
+                <p>Username</p>
             </th>
             <th>
-                <p>Mật Khẩu</p>
+                <p>Password</p>
             </th>
 
             <th></th>
@@ -63,16 +63,31 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Gender)
+                @if (item.Gender==1){<p>Nam</p>}
+                else{<p>Nữ</p>}
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Bmi)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SmokingStatus)
+                @if (item.SmokingStatus == false)
+                {
+                    <p>Không sử dụng</p>
+                }
+                else
+                {
+                    <p>Có sử dụng</p>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AlcoholicStatus)
+                @if (item.AlcoholicStatus == false)
+                {
+                    <p>Không sử dụng</p>
+                }
+                else
+                {
+                    <p>Có sử dụng</p>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Username)

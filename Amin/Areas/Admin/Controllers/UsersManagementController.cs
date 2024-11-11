@@ -25,6 +25,57 @@ namespace Amin.Areas.Admin.Controllers
         {
             return View(await _context.Users.ToListAsync());
         }
+        public async Task<IActionResult> AdminDashboard()
+        {
+            var users = await _context.Users
+                .OrderByDescending(p => p.UserId)
+                .Take(30)
+                .ToListAsync();
+
+            // Nhóm dữ liệu hút thuốc theo độ tuổi
+            var smokingByAge = users
+                .Where(u => u.Age.HasValue && u.SmokingStatus.HasValue)
+                .GroupBy(u => u.Age)
+                .Select(g => new
+                {
+                    Age = g.Key,
+                    Smokers = g.Count(u => u.SmokingStatus == true),
+                    NonSmokers = g.Count(u => u.SmokingStatus == false)
+                })
+                .ToList();
+
+            // Nhóm dữ liệu uống rượu bia theo độ tuổi
+            var drinkingByAge = users
+                .Where(u => u.Age.HasValue && u.AlcoholicStatus.HasValue)
+                .GroupBy(u => u.Age)
+                .Select(g => new
+                {
+                    Age = g.Key,
+                    Drinkers = g.Count(u => u.AlcoholicStatus == true),
+                    NonDrinkers = g.Count(u => u.AlcoholicStatus == false)
+                })
+                .ToList();
+
+            // Dữ liệu BMI theo độ tuổi
+            var bmiByAge = users
+                .Where(u => u.Age.HasValue && u.Bmi.HasValue)
+                .GroupBy(u => u.Age)
+                .Select(g => new
+                {
+                    Age = g.Key,
+                    BmiValues = g.Select(u => u.Bmi).ToList()
+                })
+                .ToList();
+
+            // Truyền dữ liệu vào ViewBag
+            ViewBag.SmokingByAge = smokingByAge;
+            ViewBag.DrinkingByAge = drinkingByAge;
+            ViewBag.BmiByAge = bmiByAge;
+
+            return View();
+        }
+
+
 
         // GET: Admin/UsersManagement/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Amin.styles.css" asp-append-version="true" />
-    <link href="~/"/>
+    <link rel="stylesheet" href="~/css/Diagram.css" asp-append-version="true" />
 </head>
 <body>
     <div class="container-fluid">
@@ -39,7 +39,7 @@
                         </li>
                         
                         <li>
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a asp-area="Admin" asp-controller="UsersManagement" asp-action="AdminDashboard" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Visualize</span>
                             </a>
                         </li>

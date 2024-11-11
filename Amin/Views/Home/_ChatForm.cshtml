@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Chat with ChatGPT";
+}
+
+<div class="chat-container">
+    <h2>Chat with ChatGPT</h2>
+
+    <form method="post">
+        <div>
+            <label for="prompt">Enter your prompt:</label>
+            <input type="text" id="prompt" name="prompt" required />
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    @if (ViewBag.Response != null)
+    {
+        <h3>Response from ChatGPT:</h3>
+        <p>@ViewBag.Response</p>
+    }
+    else{
+        <h3>Lỗi</h3>
+    }
+</div>

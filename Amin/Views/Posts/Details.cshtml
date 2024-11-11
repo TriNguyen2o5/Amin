@@ -1,40 +1,32 @@
 ﻿@model Amin.Data.Post
 
 @{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Post Details";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
+    <!-- Tiêu đề bài viết -->
+    <h1 class="text-center">@Html.DisplayFor(model => model.Title)</h1>
 
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AuthorName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostImageData)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PostImageData)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-controller="Home" asp-action="Index" ></a>
+    <!-- Hiển thị nội dung bài viết -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title">Content</h4>
+            <p class="card-text">@Html.DisplayFor(model => model.Content)</p>
+        </div>
+    </div>
+
+    <!-- Thông tin tác giả -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Author</h5>
+            <p class="card-text">@Html.DisplayFor(model => model.AuthorName)</p>
+        </div>
+    </div>
+
+    <!-- Nút quay lại trang chủ -->
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Home</a>
+    </div>
 </div>

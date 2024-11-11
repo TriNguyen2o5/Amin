@@ -1,5 +1,10 @@
 ﻿@model Amin.Data.Post
 
+@{
+    ViewBag.Title = "Login";
+
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
 <div class="container">
     <h2>@Model.Title</h2>
     <p><small>By @Model.AuthorName on @Model.PostedDate</small></p>

@@ -11,6 +11,7 @@ builder.Services.Configure<OpenAiSettings>(builder.Configuration.GetSection("Ope
 // Đăng ký HttpClient và ChatGptService
 builder.Services.AddHttpClient<ChatGptService>();
 
+
 // Cấu hình DbContext cho SQL Server
 builder.Services.AddDbContext<PatientManagementContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDatabase")));

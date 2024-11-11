@@ -1,10 +1,159 @@
-﻿﻿
-@{
-    ViewBag.Title = "User Dashboard";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewData["Title"] = "User Dashboard";
 }
 
-<div class="container">
-    <h2>Welcome, ahaa</h2>
-    <p>This is your dashboard.</p>
+<div class="container mt-5">
+    <!-- Tiêu đề chào mừng -->
+    @if (@ViewBag.User.FullName != null)
+    {
+        <h2 class="text-center mb-4">Welcome @ViewBag.User.FullName!!</h2>
+    }
+    else if (@ViewBag.User.Username != null)
+    {
+        <h2 class="text-center mb-4">Welcome @ViewBag.User.Username!!</h2>
+    }
+    else
+    {
+        <h2 class="text-center mb-4">Welcome user !!</h2>
+    }
+    @if (ViewBag.User != null)
+    {
+        <!-- Thẻ card chứa thông tin người dùng -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3>Your Information</h3>
+            </div>
+            <div class="card-body">
+                <!-- Hiển thị thông tin người dùng -->
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Name:</strong></div>
+                    <div class="col-sm-8">@ViewBag.User.FullName</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Username:</strong></div>
+                    <div class="col-sm-8">@ViewBag.User.Username</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Age:</strong></div>
+                    <div class="col-sm-8">@ViewBag.User.Age</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Address:</strong></div>
+                    <div class="col-sm-8">@ViewBag.User.Address</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Gender:</strong></div>
+                    <div class="col-sm-8">@((ViewBag.User.Gender == 1) ? "Male" : "Female")</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Smoking Status:</strong></div>
+                    <div class="col-sm-8">@((ViewBag.User.SmokingStatus == true) ? "Yes" : "No")</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Alcoholic Status:</strong></div>
+                    <div class="col-sm-8">@((ViewBag.User.AlcoholicStatus == true) ? "Yes" : "No")</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>BMI:</strong></div>
+                    <div class="col-sm-8">@ViewBag.User.Bmi</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Các nút chức năng -->
+        <div class="text-center">
+            <a href="@Url.Action("Edit", "Users", new { id = ViewBag.User.UserId })" class="btn btn-warning btn-lg mx-2">
+                Edit Profile
+            </a>
+            <a href="@Url.Action("Logout", "Home")" class="btn btn-danger btn-lg mx-2">
+                Logout
+            </a>
+        </div>
+    }
+    else
+    {
+        <p class="alert alert-warning text-center mt-4">User not found.</p>
+    }
 </div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Diagram</h2>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3>Your Information</h3>
+        </div>
+        <div class="card-body">
+            <div id="chart"></div> <!-- Khu vực cho biểu đồ D3 -->
+            <div class="row mt-4">
+                <div class="col-sm-4"><strong>BMI:</strong></div>
+                <div class="col-sm-8">@ViewBag.User.Bmi</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Fetch user data by calling the API
+        fetch("/api/UserApi/@ViewBag.User.UserId")
+            .then(response => response.json())
+            .then(user => {
+                if (user) {
+                    visualizeUserData(user);
+                }
+            })
+            .catch(error => console.error("Error fetching user data:", error));
+
+        // Visualize user data using D3.js
+        function visualizeUserData(user) {
+            const data = [
+                { label: "BMI", value: user.bmi || 0 },
+                { label: "Age", value: user.age || 0 },
+                { label: "Gender", value: user.gender === 1 ? 1 : 0 }
+            ];
+
+            // Set up the SVG area
+            const width = 400, height = 200, margin = { top: 20, right: 20, bottom: 30, left: 40 };
+            const svg = d3.select("#chart").append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+            // Define scales
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.label))
+                .range([margin.left, width - margin.right])
+                .padding(0.1);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.value)]).nice()
+                .range([height - margin.bottom, margin.top]);
+
+            // Draw bars
+            svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", d => x(d.label))
+                .attr("y", d => y(d.value))
+                .attr("width", x.bandwidth())
+                .attr("height", d => y(0) - y(d.value))
+                .attr("fill", "#69b3a2");
+
+            // Add x-axis
+            svg.append("g")
+                .attr("transform", `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x));
+
+            // Add y-axis
+            svg.append("g")
+                .attr("transform", `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y));
+        }
+    });
+</script>
+<a href="@Url.Action("Index", "Chat")" class="btn btn-info btn-lg mx-2">
+    Chat with ChatGPT
+</a>
+

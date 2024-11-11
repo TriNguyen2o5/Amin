@@ -83,7 +83,8 @@ namespace Amin.Controllers
             if (user != null)
             {
                 HttpContext.Session.SetString("Username", user.Username);
-                return RedirectToAction("UserDashboard");
+                ViewBag.User = user;
+                return RedirectToAction("UserDashboard","Home");
             }
             else
             {
@@ -94,16 +95,30 @@ namespace Amin.Controllers
 
         public IActionResult UserDashboard()
         {
-            if (HttpContext.Session.GetString("Username") != null)
+            // Lấy giá trị của "Username" từ session
+            var username = HttpContext.Session.GetString("Username");
+
+            if (string.IsNullOrEmpty(username))
             {
+                // Nếu "Username" là null hoặc empty, chuyển hướng về trang đăng nhập
+                return RedirectToAction("Login");
+            }
+
+            // Nếu người dùng đã đăng nhập, lấy thông tin người dùng từ cơ sở dữ liệu
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            ViewBag.username = username;
+            if (user != null)
+            {
+                // Lưu thông tin người dùng vào ViewBag để sử dụng trong View
+                ViewBag.User = user;
                 ViewData["IsAuthenticated"] = true;
                 return View();
             }
-            else
-            {
-                return RedirectToAction("Login");
-            }
+
+            // Nếu không tìm thấy người dùng, chuyển hướng về trang đăng nhập
+            return RedirectToAction("Login");
         }
+
 
         public IActionResult Logout()
         {
