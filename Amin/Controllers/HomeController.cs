@@ -18,9 +18,10 @@ namespace Amin.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewData["IsAuthenticated"] = HttpContext.Session.GetString("Username") != null;
             var posts = await _context.Posts
                 .OrderByDescending(p => p.PostedDate)
-                .Take(10) // Lấy 10 bài viết mới nhất
+                .Take(10)
                 .ToListAsync();
             return View(posts);
         }
@@ -44,6 +45,70 @@ namespace Amin.Controllers
             }
 
             return View(post);
+        }
+        public IActionResult Register() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Username == user.Username);
+
+                if (existingUser == null)
+                {
+                    _context.Users.Add(user);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ViewBag.Error = "Username already exists.";
+                }
+            }
+            return View(user);
+        }
+
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string username, string password)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+
+            if (user != null)
+            {
+                HttpContext.Session.SetString("Username", user.Username);
+                return RedirectToAction("UserDashboard");
+            }
+            else
+            {
+                ViewBag.Error = "Invalid username or password.";
+                return View();
+            }
+        }
+
+        public IActionResult UserDashboard()
+        {
+            if (HttpContext.Session.GetString("Username") != null)
+            {
+                ViewData["IsAuthenticated"] = true;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
         }
 
 

@@ -16,6 +16,27 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PatientManagementContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("MyDatabase")));
 //////
+// Thêm dịch vụ xác thực
+builder.Services.AddAuthentication("UserAuth")
+    .AddCookie("UserAuth", options =>
+    {
+        options.LoginPath = "/Home/Login";
+        options.LogoutPath = "/Home/Logout";
+        options.AccessDeniedPath = "/Home/AccessDenied";
+    });
+
+// Thêm dịch vụ Session
+builder.Services.AddDistributedMemoryCache(); // Bộ nhớ tạm cho session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian hết hạn của session
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// Dịch vụ Controller và View
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,7 +51,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+// Kích hoạt Session
+app.UseSession();
 
+// Kích hoạt Authentication và Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

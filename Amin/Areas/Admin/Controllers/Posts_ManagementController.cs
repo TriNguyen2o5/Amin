@@ -54,10 +54,21 @@ namespace Amin.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,Content,AuthorName,PostedDate,PostImageId,PostImageData")] Post post)
+        public async Task<IActionResult> Create([Bind("PostId,Title,Content,AuthorName,PostedDate,PostImageId,PostImageData")] Post post, IFormFile Image)
         {
             if (ModelState.IsValid)
             {
+                // Kiểm tra nếu file ảnh không null
+                if (Image != null && Image.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await Image.CopyToAsync(ms);
+                        var imageBytes = ms.ToArray();
+                        // Chuyển đổi sang chuỗi Base64
+                        post.PostImageData = Convert.ToBase64String(imageBytes);
+                    }
+                }
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
