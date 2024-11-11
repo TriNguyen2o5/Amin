@@ -1,0 +1,49 @@
+﻿/* Shrinking Navbar */
+.navbar {
+    transition: all 0.3s ease;
+}
+
+    .navbar.shrink {
+        height: 60px; /* Adjust height when navbar is shrunk */
+        background-color: #ffffff; /* Optional: Change background on scroll */
+    }
+
+.navbar-brand img {
+    transition: all 0.3s ease;
+}
+
+.navbar.shrink .navbar-brand img {
+    height: 40px; /* Shrink logo size */
+    width: auto;
+}
+
+.navbar-nav {
+    transition: all 0.3s ease;
+    justify-content: center;
+}
+
+.shrink .navbar-nav .nav-link {
+    font-size: 0.9rem; /* Adjust font size of navbar links on scroll */
+}
+
+/* Scroll-to-Top Button */
+#btn-back-to-top {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 99;
+    font-size: 18px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    transition: opacity 0.3s;
+}
+
+    #btn-back-to-top:hover {
+        background-color: #c9302c;
+    }

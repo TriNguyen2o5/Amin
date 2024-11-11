@@ -9,6 +9,7 @@ using Amin.Data;
 
 namespace Amin.Areas.Admin.Controllers
 {
+    
     [Area("Admin")]
     public class UsersManagementController : Controller
     {
@@ -42,6 +43,7 @@ namespace Amin.Areas.Admin.Controllers
 
             return View(user);
         }
+       
 
         // GET: Admin/UsersManagement/Create
         public IActionResult Create()
