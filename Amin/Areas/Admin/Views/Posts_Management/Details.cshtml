@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="alert-heading">Thông tin chi tiết các bài Posts</h1>
+<h1 class="alert-heading">Post Details</h1>
 
 <div>
     <h4>Post</h4>
@@ -50,6 +50,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.PostId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.PostId">Edit</a> |
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
 </div>

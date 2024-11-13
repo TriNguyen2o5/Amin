@@ -120,6 +120,7 @@ namespace Amin.Controllers
         }
 
 
+
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();

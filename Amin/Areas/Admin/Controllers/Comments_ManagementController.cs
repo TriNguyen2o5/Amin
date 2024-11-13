@@ -49,8 +49,8 @@ namespace Amin.Areas.Admin.Controllers
         // GET: Admin/Comments_Management/Create
         public IActionResult Create()
         {
-            ViewData["CommentAuthorId"] = new SelectList(_context.Users, "UserId", "UserId");
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId");
+            ViewData["CommentAuthorId"] = new SelectList(_context.Users, "UserId", "Username");
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace Amin.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CommentAuthorId"] = new SelectList(_context.Users, "UserId", "UserId", comment.CommentAuthorId);
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
+            ViewData["CommentAuthorId"] = new SelectList(_context.Users, "UserId", "Username", comment.CommentAuthorId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", comment.PostId);
             return View(comment);
         }
 
@@ -85,8 +85,8 @@ namespace Amin.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CommentAuthorId"] = new SelectList(_context.Users, "UserId", "UserId", comment.CommentAuthorId);
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
+            ViewData["CommentAuthorId"] = new SelectList(_context.Users, "UserId", "Username", comment.CommentAuthorId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", comment.PostId);
             return View(comment);
         }
 
@@ -122,8 +122,8 @@ namespace Amin.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CommentAuthorId"] = new SelectList(_context.Users, "UserId", "UserId", comment.CommentAuthorId);
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
+            ViewData["CommentAuthorId"] = new SelectList(_context.Users, "UserId", "Username", comment.CommentAuthorId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", comment.PostId);
             return View(comment);
         }
 

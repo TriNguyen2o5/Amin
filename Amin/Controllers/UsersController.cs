@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Amin.Data;
+using Amin.Views.Home;
 
 namespace Amin.Controllers
 {
@@ -46,6 +47,7 @@ namespace Amin.Controllers
         public IActionResult Create()
         {
             return View();
+
         }
 
         // POST: Users/Create
@@ -110,7 +112,7 @@ namespace Amin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("UserDashboard","Home");
             }
             return View(user);
         }

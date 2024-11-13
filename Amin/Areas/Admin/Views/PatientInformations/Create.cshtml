@@ -5,18 +5,32 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Create Patient Information</h1>
 
-<h4>PatientInformation</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="UserId" class="control-label">User</label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
+                <input asp-for="Date" type="date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SleepTime" class="control-label"></label>
+                <input asp-for="SleepTime" type="time" class="form-control" />
+                <span asp-validation-for="SleepTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WakeTime" class="control-label"></label>
+                <input asp-for="WakeTime" type="time" class="form-control" />
+                <span asp-validation-for="WakeTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhysicalActivityDuration" class="control-label"></label>
@@ -29,20 +43,6 @@
                 <span asp-validation-for="CaffeineIntake" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SleepTime" class="control-label"></label>
-                <input asp-for="SleepTime" class="form-control" />
-                <span asp-validation-for="SleepTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WakeTime" class="control-label"></label>
-                <input asp-for="WakeTime" class="form-control" />
-                <span asp-validation-for="WakeTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -50,7 +50,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

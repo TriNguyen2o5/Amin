@@ -63,8 +63,8 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @if (item.Gender==1){<p>Nam</p>}
-                else{<p>Nữ</p>}
+                @if (item.Gender==1){<p>Male</p>}
+                else{<p>Female</p>}
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Bmi)
@@ -72,21 +72,21 @@
             <td>
                 @if (item.SmokingStatus == false)
                 {
-                    <p>Không sử dụng</p>
+                    <p>Not Using</p>
                 }
                 else
                 {
-                    <p>Có sử dụng</p>
+                    <p>Using</p>
                 }
             </td>
             <td>
                 @if (item.AlcoholicStatus == false)
                 {
-                    <p>Không sử dụng</p>
+                        <p>Not Using</p>
                 }
                 else
                 {
-                    <p>Có sử dụng</p>
+                        <p>Using</p>
                 }
             </td>
             <td>

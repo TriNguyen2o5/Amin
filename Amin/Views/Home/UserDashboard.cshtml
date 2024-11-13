@@ -47,11 +47,11 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-4"><strong>Smoking Status:</strong></div>
-                    <div class="col-sm-8">@((ViewBag.User.SmokingStatus == true) ? "Yes" : "No")</div>
+                    <div class="col-sm-8">@((ViewBag.User.SmokingStatus == true) ? "Using" : "Not Using")</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-4"><strong>Alcoholic Status:</strong></div>
-                    <div class="col-sm-8">@((ViewBag.User.AlcoholicStatus == true) ? "Yes" : "No")</div>
+                    <div class="col-sm-8">@((ViewBag.User.AlcoholicStatus == true) ? "Using" : "Not Using")</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-4"><strong>BMI:</strong></div>
@@ -154,6 +154,6 @@
     });
 </script>
 <a href="@Url.Action("Index", "Chat")" class="btn btn-info btn-lg mx-2">
-    Chat with ChatGPT
+    Chat with Medical AI Assistant
 </a>
 

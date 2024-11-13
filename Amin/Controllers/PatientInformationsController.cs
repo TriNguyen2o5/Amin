@@ -47,7 +47,7 @@ namespace Amin.Controllers
         // GET: PatientInformations/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace Amin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", patientInformation.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", patientInformation.UserId);
             return View(patientInformation);
         }
 
@@ -81,7 +81,7 @@ namespace Amin.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", patientInformation.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", patientInformation.UserId);
             return View(patientInformation);
         }
 
@@ -117,7 +117,7 @@ namespace Amin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", patientInformation.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", patientInformation.UserId);
             return View(patientInformation);
         }
 

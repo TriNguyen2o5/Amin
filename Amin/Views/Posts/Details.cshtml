@@ -7,21 +7,22 @@
 
 <div class="container mt-4">
     <!-- Tiêu đề bài viết -->
-    <h1 class="text-center">@Html.DisplayFor(model => model.Title)</h1>
+    <h1 class="text-center">@Html.Raw(Model.Title)</h1>
 
     <!-- Hiển thị nội dung bài viết -->
     <div class="card mb-4">
         <div class="card-body">
             <h4 class="card-title">Content</h4>
-            <p class="card-text">@Html.DisplayFor(model => model.Content)</p>
+            <p class="card-text">@Html.Raw(Model.Content)</p>
         </div>
     </div>
+
 
     <!-- Thông tin tác giả -->
     <div class="card mb-4">
         <div class="card-body">
             <h5 class="card-title">Author</h5>
-            <p class="card-text">@Html.DisplayFor(model => model.AuthorName)</p>
+            <p class="card-text">@Html.Raw(Model.AuthorName)</p>
         </div>
     </div>
 

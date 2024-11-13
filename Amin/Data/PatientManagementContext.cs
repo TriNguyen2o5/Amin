@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Amin.Data;
@@ -34,7 +33,7 @@ public partial class PatientManagementContext : DbContext
     {
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.CommentId).HasName("PK__Comments__99FC143B4CE8B184");
+            entity.HasKey(e => e.CommentId).HasName("PK__Comments__99FC143BB4597747");
 
             entity.Property(e => e.CommentId).HasColumnName("Comment_ID");
             entity.Property(e => e.CommentAuthorId).HasColumnName("Comment_Author_ID");
@@ -58,7 +57,7 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<Notification>(entity =>
         {
-            entity.HasKey(e => e.NotificateId).HasName("PK__Notifica__14707F342513C431");
+            entity.HasKey(e => e.NotificateId).HasName("PK__Notifica__14707F34CB7F3D6D");
 
             entity.Property(e => e.NotificateId).HasColumnName("NotificateID");
             entity.Property(e => e.Content).HasColumnType("ntext");
@@ -68,13 +67,13 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<PatientInformation>(entity =>
         {
-            entity.HasKey(e => e.RecordId).HasName("PK__Patient___603A0C60E46CD560");
+            entity.HasKey(e => e.RecordId).HasName("PK__Patient___603A0C6022736150");
 
             entity.ToTable("Patient_Informations");
 
             entity.Property(e => e.RecordId).HasColumnName("Record_ID");
             entity.Property(e => e.CaffeineIntake)
-                .HasColumnType("decimal(4, 1)")
+                .HasColumnType("decimal(4, 2)")
                 .HasColumnName("Caffeine_intake");
             entity.Property(e => e.PhysicalActivityDuration).HasColumnName("Physical_Activity_Duration");
             entity.Property(e => e.SleepTime).HasColumnName("Sleep_Time");
@@ -89,7 +88,7 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<Post>(entity =>
         {
-            entity.HasKey(e => e.PostId).HasName("PK__Posts__5875F74D65BE3C04");
+            entity.HasKey(e => e.PostId).HasName("PK__Posts__5875F74DED4F71A1");
 
             entity.Property(e => e.PostId).HasColumnName("Post_ID");
             entity.Property(e => e.AuthorName)
@@ -108,15 +107,15 @@ public partial class PatientManagementContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__206D91904F968F0E");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__206D9190FA226F29");
 
-            entity.HasIndex(e => e.Username, "UQ__Users__536C85E49A7B7A13").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Users__536C85E42547640A").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("User_ID");
             entity.Property(e => e.Address).HasMaxLength(255);
             entity.Property(e => e.AlcoholicStatus).HasColumnName("Alcoholic_status");
             entity.Property(e => e.Bmi)
-                .HasColumnType("decimal(4, 1)")
+                .HasColumnType("decimal(4, 2)")
                 .HasColumnName("BMI");
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
@@ -139,7 +138,7 @@ public partial class PatientManagementContext : DbContext
                         .HasConstraintName("FK_TruyCap_UserID"),
                     j =>
                     {
-                        j.HasKey("UserId", "PostId").HasName("PK__Truy_Cap__E5EACEE4E8E8D7B5");
+                        j.HasKey("UserId", "PostId").HasName("PK__Truy_Cap__E5EACEE4CD4E9384");
                         j.ToTable("Truy_Cap");
                         j.IndexerProperty<int>("UserId").HasColumnName("User_ID");
                         j.IndexerProperty<int>("PostId").HasColumnName("Post_ID");

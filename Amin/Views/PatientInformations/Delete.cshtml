@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
 <h1>Delete</h1>
@@ -12,11 +12,35 @@
     <h4>PatientInformation</h4>
     <hr />
     <dl class="row">
+        @* <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.UserId)
+        </dd> *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.FullName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.FullName)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Date)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SleepTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SleepTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WakeTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WakeTime)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PhysicalActivityDuration)
@@ -29,24 +53,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CaffeineIntake)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SleepTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SleepTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WakeTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WakeTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.UserId)
         </dd>
     </dl>
     

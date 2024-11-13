@@ -48,7 +48,7 @@ namespace Amin.Areas.Admin.Controllers
         // GET: Admin/PatientInformations/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
             return View();
         }
 
@@ -59,13 +59,25 @@ namespace Amin.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RecordId,Date,PhysicalActivityDuration,CaffeineIntake,SleepTime,WakeTime,UserId")] PatientInformation patientInformation)
         {
+            if (!ModelState.IsValid)
+            {
+                // In ra các lỗi của ModelState để xác định vấn đề
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        Console.WriteLine(error.ErrorMessage); // In lỗi ra console hoặc debug window
+                    }
+                }
+            }
             if (ModelState.IsValid)
             {
+                patientInformation.Date = patientInformation.Date?.Date;
                 _context.Add(patientInformation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", patientInformation.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", patientInformation.UserId);
             return View(patientInformation);
         }
 
@@ -82,7 +94,7 @@ namespace Amin.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", patientInformation.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", patientInformation.UserId);
             return View(patientInformation);
         }
 
@@ -118,7 +130,7 @@ namespace Amin.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", patientInformation.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", patientInformation.UserId);
             return View(patientInformation);
         }
 

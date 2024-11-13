@@ -30,10 +30,16 @@
                             </a>
                             <ol class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a asp-area="Admin" asp-controller="Notifications" asp-action="Index" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span>Notifications</a>
+                                    <a asp-area="Admin" asp-controller="Notifications" asp-action="Index" class="nav-link px-0"> <span class="d-none d-sm-inline">-</span>Notifications</a>
                                 </li>
                                 <li>
-                                    <a asp-area="Admin" asp-controller="Posts_Management" asp-action="Index" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span>Posts</a>
+                                    <a asp-area="Admin" asp-controller="Posts_Management" asp-action="Index" class="nav-link px-0"> <span class="d-none d-sm-inline">-</span>Posts</a>
+                                </li>
+                                <li>
+                                    <a asp-area="Admin" asp-controller="Comments_Management" asp-action="Index" class="nav-link px-0"> <span class="d-none d-sm-inline">-</span>Comments</a>
+                                </li>
+                                <li>
+                                    <a asp-area="Admin" asp-controller="PatientInformations" asp-action="Index" class="nav-link px-0"> <span class="d-none d-sm-inline">-</span>Patient Information</a>
                                 </li>
                             </ol>
                         </li>
@@ -46,21 +52,7 @@
                         <!-- Add other menu items as needed -->
                     </ul>
                     <hr>
-                    <div class="dropdown pb-4">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/images/ChoNghi.jpg" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">Chó Nghị</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="#">New project...</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
-                        </ul>
-                    </div>
+                    
                 </div>
             </div>
             <!-- Content Area -->

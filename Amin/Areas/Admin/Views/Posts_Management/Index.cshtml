@@ -5,10 +5,10 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Quản lý Posts</h1>
+<h1>Posts Management</h1>
 
 <p>
-    <a asp-action="Create" class="alert-heading">Thêm bài Post</a>
+    <a class="btn btn-info" asp-action="Create" class="alert-heading">Create New Post</a>
 </p>
 <table class="table">
     <thead>
@@ -59,9 +59,9 @@
                 }
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.PostId">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
             </td>
         </tr>
 }

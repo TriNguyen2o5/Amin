@@ -28,31 +28,59 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarContent">
-                        <ul class="navbar-nav ms-auto d-flex justify-content-center">
+                    <div class="collapse navbar-collapse" id="navbarContent" style="padding: 10px;">
+                        <ul class="navbar-nav ms-auto d-flex justify-content-center" style="list-style-type: none; padding: 0; margin: 0;">
                             @if (ViewData["IsAuthenticated"] != null && (bool)ViewData["IsAuthenticated"])
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="UserDashboard">Account</a>
+                                <li class="nav-item" style="margin-right: 15px;">
+                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="UserDashboard"
+                                       style="font-weight: 600; color: #333; padding: 8px 15px; text-decoration: none;
+                          border-radius: 5px; transition: background-color 0.3s;">
+                                        Account
+                                    </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a>
+                                <li class="nav-item" style="margin-right: 15px;">
+                                    <a class="nav-link text-dark" asp-controller="PatientInformations" asp-action="Index"
+                                       style="font-weight: 600; color: #333; padding: 8px 15px; text-decoration: none;
+                          border-radius: 5px; transition: background-color 0.3s;">
+                                       SleepCare 
+                                    </a>
+                                </li>
+                                <li class="nav-item" style="margin-right: 15px;">
+                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Logout"
+                                       style="font-weight: 600; color: #333; padding: 8px 15px; text-decoration: none;
+                          border-radius: 5px; transition: background-color 0.3s;">
+                                        Logout
+                                    </a>
                                 </li>
                             }
                             else
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                                <li class="nav-item" style="margin-right: 15px;">
+                                    <a class="nav-link text-dark" asp-controller="Posts" asp-action="Index"
+                                       style="font-weight: 600; color: #333; padding: 8px 15px; text-decoration: none;
+                          border-radius: 5px; transition: background-color 0.3s;">
+                                        Articles
+                                    </a>
+                                </li>
+                                <li class="nav-item" style="margin-right: 15px;">
+                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Login"
+                                       style="font-weight: 600; color: #333; padding: 8px 15px; text-decoration: none;
+                          border-radius: 5px; transition: background-color 0.3s;">
+                                        Login
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Login">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Register">Sign up</a>
+                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Register"
+                                       style="font-weight: 600; color: #333; padding: 8px 15px; text-decoration: none;
+                          border-radius: 5px; transition: background-color 0.3s;">
+                                        Sign up
+                                    </a>
                                 </li>
                             }
                         </ul>
                     </div>
+
                 </div>
             </nav>
 
@@ -84,14 +112,56 @@
             </main>
         </div>
 
-        <footer class="border-top footer text-muted">
-            <a id="btn-back-to-top" class="btn btn-dark" size:10px title="Go to top">
-                <i class="fas fa-arrow-up"></i> <!-- Use Font Awesome or any other icon library -->
-            </a>
-            <div class="container-fluid">
-                SleepCare by SinCos Education
-            </div>
+        <!-- Footer -->
+        <footer class="bg-dark text-white py-3">
+            <div class="container">
+                <div class="row">
+                    <!-- Column 1: Contact Information -->
+                    <div class="col-6 col-md-3 mb-3">
+                        <a class > </a>
+                        <h5 class="mb-2">Contact Information</h5>
+                        <p class="text-muted small">For inquiries, feel free to reach us:</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-phone-alt"></i> +84 123 456 789</li>
+                            <li><i class="fas fa-envelope"></i> Sincoseducation@gmail.com</li>
+                            <li><i class="fas fa-map-marker-alt"></i> 828 Sư Vạn Hạnh - Vietnam</li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="col-6 col-md-3 mb-3">
+                        <h5 class="mb-2">Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="/" class="text-decoration-none text-muted">Home</a></li>
+                            <li><a href="/" class="text-decoration-none text-muted">About Us</a></li>
+                            <li><a href="/" class="text-decoration-none text-muted">Menu</a></li>
+
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Google Map -->
+                    <div class="col-6 col-md-3 mb-3">
+                        <h5 class="mb-2">Our Location</h5>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <!-- Google Maps Embed with smaller size -->
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4602263428715!2d106.66478987586865!3d10.776019959199466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752edb765b5c25%3A0x9a3519bdad5a85a3!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOZ2_huqFpIG5n4buvIC0gVGluIGjhu41jIFRQLiBI4buTIENow60gTWluaCAoSFVGTElUKQ!5e0!3m2!1sen!2s!4v1731393599106!5m2!1sen!2s"
+                                    width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                        </div>
+                        <!-- Row for Copyright -->
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <p class="text-muted mb-0 small">&copy; 2024 SinCos Education All Rights Reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
         </footer>
+        <!-- End of Footer -->
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>

@@ -4,192 +4,71 @@
 }
 <li
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Thống Kê Tình Trạng Sức Khỏe Theo Độ Tuổi</h2>
+    <h2 class="text-center mb-4">Biểu Đồ Thông Tin Người Dùng</h2>
 
-    <!-- Biểu đồ tình trạng hút thuốc lá theo độ tuổi -->
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-primary text-white">
-            <h3>Biểu đồ tình trạng hút thuốc lá theo độ tuổi</h3>
+            <h3>Biểu đồ BMI của người dùng</h3>
         </div>
         <div class="card-body">
-            <div id="smokingByAgeChart"></div>
+            <div id="chart"></div> <!-- Khu vực cho biểu đồ D3 -->
         </div>
     </div>
-
-    <!-- Biểu đồ tình trạng uống rượu bia theo độ tuổi -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-secondary text-white">
-            <h3>Biểu đồ tình trạng uống rượu bia theo độ tuổi</h3>
-        </div>
-        <div class="card-body">
-            <div id="drinkingByAgeChart"></div>
-        </div>
-    </div>
-
-    <!-- Biểu đồ BMI theo độ tuổi -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-success text-white">
-            <h3>Biểu đồ BMI theo độ tuổi</h3>
-        </div>
-        <div class="card-body">
-            <div id="bmiByAgeChart"></div>
-        </div>
-    </div>
-
 </div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-   document.addEventListener("DOMContentLoaded", function () {
-    // Dữ liệu hút thuốc theo độ tuổi
-    const smokingByAgeData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.SmokingByAge));
-    const smokingChartData = smokingByAgeData.map(d => ({
-        age: d.Age,
-        smokers: d.Smokers,
-        nonSmokers: d.NonSmokers
-    }));
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy dữ liệu người dùng từ ViewBag
+        const users = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Users));
 
-    // Dữ liệu uống rượu bia theo độ tuổi
-    const drinkingByAgeData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DrinkingByAge));
-    const drinkingChartData = drinkingByAgeData.map(d => ({
-        age: d.Age,
-        drinkers: d.Drinkers,
-        nonDrinkers: d.NonDrinkers
-    }));
+        // Chuyển dữ liệu thành định dạng cho D3.js
+        const data = users.map(user => ({
+            name: user.FullName,
+            bmi: user.Bmi || 0 // Gán giá trị BMI, nếu không có thì là 0
+        }));
 
-    // Dữ liệu BMI theo độ tuổi (Chỉ số BMI từng người)
-    const bmiByAgeData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.BmiByAge));
-    const bmiChartData = bmiByAgeData.map(d => ({
-        age: d.Age,
-        bmiValues: d.BmiValues // Đây là danh sách các giá trị BMI của từng người
-    }));
-
-    // Hàm vẽ biểu đồ cột cho từng độ tuổi
-    function drawGroupedBarChart(data, selector, xKey, yKeys, colors) {
-        const width = 900, height = 500, margin = { top: 20, right: 20, bottom: 120, left: 80 };
-
-        const svg = d3.select(selector).append("svg")
+        // Thiết lập khu vực SVG cho biểu đồ
+        const width = 600, height = 400, margin = { top: 20, right: 20, bottom: 50, left: 60 };
+        const svg = d3.select("#chart").append("svg")
             .attr("width", width)
             .attr("height", height);
 
-        const x0 = d3.scaleBand()
-            .domain(data.map(d => d[xKey]))
-            .range([margin.left, width - margin.right])
-            .padding(0.3);
-
-        const x1 = d3.scaleBand()
-            .domain(yKeys)
-            .range([0, x0.bandwidth()])
-            .padding(0.05);
-
-        const y = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d3.max(yKeys, key => d[key]))]).nice()
-            .range([height - margin.bottom, margin.top]);
-
-        svg.append("g")
-            .selectAll("g")
-            .data(data)
-            .enter().append("g")
-            .attr("transform", d => `translate(${x0(d[xKey])},0)`)
-            .selectAll("rect")
-            .data(d => yKeys.map(key => ({ key, value: d[key] })))
-            .enter().append("rect")
-            .attr("x", d => x1(d.key))
-            .attr("y", d => y(d.value))
-            .attr("width", x1.bandwidth())
-            .attr("height", d => y(0) - y(d.value))
-            .attr("fill", d => colors[d.key]);
-
-        svg.append("g")
-            .attr("transform", `translate(0,${height - margin.bottom})`)
-            .call(d3.axisBottom(x0))
-            .selectAll("text")
-            .style("font-size", "18px")
-            .attr("transform", "rotate(-45)")
-            .style("text-anchor", "end");
-
-        svg.append("g")
-            .attr("transform", `translate(${margin.left},0)`)
-            .call(d3.axisLeft(y))
-            .selectAll("text")
-            .style("font-size", "18px");
-
-        // Chú thích trong từng cột
-        svg.selectAll(".label")
-            .data(data)
-            .enter().append("text")
-            .attr("class", "label")
-            .attr("x", d => x1(d.key) + x1.bandwidth() / 2)
-            .attr("y", d => y(d.value) - 10)
-            .attr("text-anchor", "middle")
-            .style("font-size", "20px")
-            .style("fill", "white")
-            .text(d => d.value);
-
-        // Thêm chú thích cho trục X (Giải thích các giá trị không theo thứ tự)
-        svg.selectAll(".x-label")
-            .data(data)
-            .enter().append("text")
-            .attr("class", "x-label")
-            .attr("x", d => x0(d[xKey]) + x0.bandwidth() / 2)
-            .attr("y", height - margin.bottom + 25)
-            .attr("text-anchor", "middle")
-            .style("font-size", "14px")
-            .text(d => `Age ${d[xKey]}`); // Chú thích các giá trị trên trục X
-    }
-
-    // Vẽ biểu đồ tình trạng hút thuốc lá theo độ tuổi
-    drawGroupedBarChart(smokingChartData, "#smokingByAgeChart", "age", ["smokers", "nonSmokers"], { smokers: "#ff6384", nonSmokers: "#36a2eb" });
-
-    // Vẽ biểu đồ tình trạng uống rượu bia theo độ tuổi
-    drawGroupedBarChart(drinkingChartData, "#drinkingByAgeChart", "age", ["drinkers", "nonDrinkers"], { drinkers: "#ffcd56", nonDrinkers: "#4bc0c0" });
-
-    // Hàm vẽ biểu đồ BMI cho từng người
-    function drawBmiChart(data, selector) {
-        const width = 900, height = 500, margin = { top: 20, right: 20, bottom: 120, left: 80 };
-
-        const svg = d3.select(selector).append("svg")
-            .attr("width", width)
-            .attr("height", height);
-
+        // Thiết lập thang đo cho trục X và trục Y
         const x = d3.scaleBand()
-            .domain(data.map(d => d.age))
+            .domain(data.map(d => d.name))
             .range([margin.left, width - margin.right])
-            .padding(0.3);
+            .padding(0.1);
 
         const y = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d3.max(d.bmiValues))]).nice()
+            .domain([0, d3.max(data, d => d.bmi)]).nice()
             .range([height - margin.bottom, margin.top]);
 
-        svg.append("g")
-            .selectAll("g")
+        // Vẽ các thanh biểu đồ
+        svg.selectAll(".bar")
             .data(data)
-            .enter().append("g")
-            .attr("transform", d => `translate(${x(d.age)},0)`)
-            .selectAll("circle")
-            .data(d => d.bmiValues.map(value => ({ value })))
-            .enter().append("circle")
-            .attr("cx", (d, i) => x.bandwidth() / 2 + i * 20) // Đặt các dấu chấm cho từng người
-            .attr("cy", d => y(d.value))
-            .attr("r", 5)
-            .attr("fill", "#ff9f40");
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", d => x(d.name))
+            .attr("y", d => y(d.bmi))
+            .attr("width", x.bandwidth())
+            .attr("height", d => y(0) - y(d.bmi))
+            .attr("fill", "#69b3a2");
 
+        // Thêm trục X
         svg.append("g")
             .attr("transform", `translate(0,${height - margin.bottom})`)
             .call(d3.axisBottom(x))
             .selectAll("text")
-            .style("font-size", "18px")
             .attr("transform", "rotate(-45)")
             .style("text-anchor", "end");
 
+        // Thêm trục Y
         svg.append("g")
             .attr("transform", `translate(${margin.left},0)`)
-            .call(d3.axisLeft(y))
-            .selectAll("text")
-            .style("font-size", "18px");
-    }
-
-    // Vẽ biểu đồ BMI theo độ tuổi
-    drawBmiChart(bmiChartData, "#bmiByAgeChart");
-});
+            .call(d3.axisLeft(y));
+    });
 </script>
+
+
+

@@ -31,46 +31,18 @@ namespace Amin.Areas.Admin.Controllers
                 .OrderByDescending(p => p.UserId)
                 .Take(30)
                 .ToListAsync();
+            ViewBag.Users = users;
+            //// Đếm số lượng người có và không hút thuốc lá
+            //int smokers = users.Count(u => u.SmokingStatus == true);
+            //int nonSmokers = users.Count(u => u.SmokingStatus == false);
 
-            // Nhóm dữ liệu hút thuốc theo độ tuổi
-            var smokingByAge = users
-                .Where(u => u.Age.HasValue && u.SmokingStatus.HasValue)
-                .GroupBy(u => u.Age)
-                .Select(g => new
-                {
-                    Age = g.Key,
-                    Smokers = g.Count(u => u.SmokingStatus == true),
-                    NonSmokers = g.Count(u => u.SmokingStatus == false)
-                })
-                .ToList();
+            //// Đếm số lượng người có và không uống rượu bia
+            //int drinkers = users.Count(u => u.AlcoholicStatus == true);
+            //int nonDrinkers = users.Count(u => u.AlcoholicStatus == false);
 
-            // Nhóm dữ liệu uống rượu bia theo độ tuổi
-            var drinkingByAge = users
-                .Where(u => u.Age.HasValue && u.AlcoholicStatus.HasValue)
-                .GroupBy(u => u.Age)
-                .Select(g => new
-                {
-                    Age = g.Key,
-                    Drinkers = g.Count(u => u.AlcoholicStatus == true),
-                    NonDrinkers = g.Count(u => u.AlcoholicStatus == false)
-                })
-                .ToList();
-
-            // Dữ liệu BMI theo độ tuổi
-            var bmiByAge = users
-                .Where(u => u.Age.HasValue && u.Bmi.HasValue)
-                .GroupBy(u => u.Age)
-                .Select(g => new
-                {
-                    Age = g.Key,
-                    BmiValues = g.Select(u => u.Bmi).ToList()
-                })
-                .ToList();
-
-            // Truyền dữ liệu vào ViewBag
-            ViewBag.SmokingByAge = smokingByAge;
-            ViewBag.DrinkingByAge = drinkingByAge;
-            ViewBag.BmiByAge = bmiByAge;
+            //// Truyền dữ liệu qua ViewBag
+            //ViewBag.SmokingData = new { smokers, nonSmokers };
+            //ViewBag.AlcoholicData = new { drinkers, nonDrinkers };
 
             return View();
         }
