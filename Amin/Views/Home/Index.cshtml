@@ -8,9 +8,15 @@
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
+                        @if (post.PostImageData != null)
+                        {
+                            <img class="card-img-top img-thumbnail"
+                                 src="data:image/jpg;base64,@post.PostImageData"
+                                 alt="Image for @post.Title"  />
+                        }
                         <h5 class="card-title">@post.Title</h5>
                         <p class="card-text">
-                            @(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)
+                            @Html.Raw(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)
                         </p>
                         <a href="@Url.Action("Details", "Posts", new { id = post.PostId })" class="btn btn-primary">Read More</a>
                     </div>

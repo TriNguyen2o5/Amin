@@ -39,9 +39,8 @@
                 <span asp-validation-for="PostImageId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PostImageData" class="control-label"></label>
-                <input asp-for="PostImageData" class="form-control" />
-                <span asp-validation-for="PostImageData" class="text-danger"></span>
+                <label asp-for="PostImageId" class="control-label">Upload Image</label>
+                <input asp-for="PostImageId" type="file" name="Image" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

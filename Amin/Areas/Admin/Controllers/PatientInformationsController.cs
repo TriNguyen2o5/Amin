@@ -72,7 +72,7 @@ namespace Amin.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                patientInformation.Date = patientInformation.Date?.Date;
+                patientInformation.Date = patientInformation.Date?.Date ?? DateTime.Now;
                 _context.Add(patientInformation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
